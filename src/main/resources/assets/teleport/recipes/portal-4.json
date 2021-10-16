@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "teleport:teleporter5"
+    }
+  ],
+  "result": {
+    "item": "teleport:teleporter4",
+    "count": 1
+  }
+}
