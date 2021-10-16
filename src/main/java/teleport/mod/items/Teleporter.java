@@ -73,6 +73,11 @@ public class Teleporter extends Item implements IModel {
 		if (entity instanceof EntityLivingBase && ((EntityLivingBase) entity).getHeldItemMainhand().equals(itemstack)) {
 			calc(world, entity);
 		}
+		
+		long time = System.nanoTime();
+		long stored = time;
+		if (isActive(entity)) stored = Reference.active.get(entity);
+		if (time - stored >= recharge * 1000000000) Reference.active.remove(entity);
 	}
 	
 	public boolean isActive(Entity e) {
@@ -126,11 +131,6 @@ public class Teleporter extends Item implements IModel {
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
 		ActionResult<ItemStack> res = super.onItemRightClick(world, player, hand);
 		ItemStack i = res.getResult();
-		
-		long time = System.nanoTime();
-		long stored = time;
-		if (isActive(player)) stored = Reference.active.get(player);
-		if (time - stored >= recharge * 1000000000) Reference.active.remove(player);
 		
 		boolean cheese = false;
 		try {
